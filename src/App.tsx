@@ -9,8 +9,7 @@ import {
 	Burger,
 	useMantineTheme,
 } from '@mantine/core'
-import { NavBar } from './Navbar'
-import { CodeEditor } from './CodeEditor'
+import { CodeEditor } from 'components'
 
 export default function App() {
 	const theme = useMantineTheme()
@@ -28,17 +27,21 @@ export default function App() {
 			navbarOffsetBreakpoint='sm'
 			asideOffsetBreakpoint='sm'
 			fixed
-			navbar={<NavBar opened={opened} />}
+			// navbar={<NavBar opened={opened} />}
 			aside={
-				<MediaQuery smallerThan='sm' styles={{ display: 'none' }}>
-					<Aside p='md' hiddenBreakpoint='sm' width={{ sm: 200, lg: 300 }}>
-						<Text>Application sidebar</Text>
-					</Aside>
-				</MediaQuery>
+				<Aside p='md' hiddenBreakpoint='sm' width={{ sm: '60%' }}>
+					<Text>Application sidebar</Text>
+				</Aside>
 			}
 			footer={
 				<Footer height={60} p='md'>
-					Application footer
+					<a
+						href='https://github.com/tylim88/Firebox'
+						target={'_blank'}
+						rel='noreferrer'
+					>
+						Github
+					</a>
 				</Footer>
 			}
 			header={
@@ -56,7 +59,7 @@ export default function App() {
 							/>
 						</MediaQuery>
 
-						<Text>Application header</Text>
+						<Text>FireBox</Text>
 					</div>
 				</Header>
 			}

@@ -3,13 +3,15 @@ import './index.css'
 import App from 'App'
 import reportWebVitals from './reportWebVitals'
 import { createRoot } from 'react-dom/client'
-
+import { CodeProvider } from 'hooks'
 const container = document.getElementById('root')
 
 container &&
 	createRoot(container).render(
 		<React.StrictMode>
-			<App />
+			<CodeProvider>
+				<App />
+			</CodeProvider>
 		</React.StrictMode>
 	)
 
