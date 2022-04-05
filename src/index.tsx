@@ -2,18 +2,27 @@ import React from 'react'
 import './index.css'
 import App from 'App'
 import reportWebVitals from './reportWebVitals'
-import { createRoot } from 'react-dom/client'
 import { CodeProvider } from 'hooks'
-const container = document.getElementById('root')
+import { createRoot } from 'react-dom/client'
+import { render } from 'react-dom'
 
-container &&
-	createRoot(container).render(
-		<React.StrictMode>
-			<CodeProvider>
-				<App />
-			</CodeProvider>
-		</React.StrictMode>
-	)
+const container = document.getElementById('root')
+render(
+	<React.StrictMode>
+		<CodeProvider>
+			<App />
+		</CodeProvider>
+	</React.StrictMode>,
+	container
+)
+// container &&
+// 	createRoot(container).render(
+// 		<React.StrictMode>
+// 			<CodeProvider>
+// 				<App />
+// 			</CodeProvider>
+// 		</React.StrictMode>
+// 	)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

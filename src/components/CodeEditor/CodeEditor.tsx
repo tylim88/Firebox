@@ -9,8 +9,13 @@ export const CodeEditor = () => {
 	const { code, setCode, loading, disabled, onSave } = useCode()
 
 	return (
-		<Grid style={{ width: '40%' }}>
-			<Grid.Col style={{ display: 'flex', justifyContent: 'center' }}>
+		<Grid style={{ width: '100%', overflow: 'auto' }}>
+			<Grid.Col
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+				}}
+			>
 				<Button
 					variant='outline'
 					color='red'
@@ -31,6 +36,7 @@ export const CodeEditor = () => {
 					onChange={evn => setCode(evn.target.value)}
 					padding={15}
 					style={{
+						height: '100%',
 						borderWidth: 0,
 						fontSize: 14,
 						fontFamily:

@@ -3,13 +3,13 @@ import {
 	AppShell,
 	Header,
 	Footer,
-	Aside,
 	Text,
 	MediaQuery,
 	Burger,
 	useMantineTheme,
+	Container,
 } from '@mantine/core'
-import { CodeEditor } from 'components'
+import { CodeEditor, Iframe } from 'components'
 
 export default function App() {
 	const theme = useMantineTheme()
@@ -28,11 +28,7 @@ export default function App() {
 			asideOffsetBreakpoint='sm'
 			fixed
 			// navbar={<NavBar opened={opened} />}
-			aside={
-				<Aside p='md' hiddenBreakpoint='sm' width={{ sm: '60%' }}>
-					<Text>Application sidebar</Text>
-				</Aside>
-			}
+			aside={<Iframe />}
 			footer={
 				<Footer height={60} p='md'>
 					<a
@@ -59,7 +55,7 @@ export default function App() {
 							/>
 						</MediaQuery>
 
-						<Text>FireBox</Text>
+						<Text>FireBox 🔥</Text>
 					</div>
 				</Header>
 			}
