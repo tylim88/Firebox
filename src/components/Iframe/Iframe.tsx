@@ -42,8 +42,7 @@ export const Iframe: React.FC = () => {
 			p='16px'
 			style={{
 				flexDirection: 'column',
-				display: 'flex',
-				width: '60%',
+				height: '100%',
 			}}
 			grow
 		>

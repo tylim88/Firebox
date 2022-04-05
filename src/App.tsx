@@ -1,66 +1,21 @@
-import React, { useState } from 'react'
-import {
-	AppShell,
-	Header,
-	Footer,
-	Text,
-	MediaQuery,
-	Burger,
-	useMantineTheme,
-	Container,
-} from '@mantine/core'
-import { CodeEditor, Iframe } from 'components'
+import React from 'react'
+import { Grid, AppShell } from '@mantine/core'
+import { CodeEditor, Iframe, Header, Footer } from 'components'
 
 export default function App() {
-	const theme = useMantineTheme()
-	const [opened, setOpened] = useState(false)
 	return (
-		<AppShell
-			styles={{
-				main: {
-					background:
-						theme.colorScheme === 'dark'
-							? theme.colors.dark[8]
-							: theme.colors.gray[0],
-				},
-			}}
-			navbarOffsetBreakpoint='sm'
-			asideOffsetBreakpoint='sm'
-			fixed
-			// navbar={<NavBar opened={opened} />}
-			aside={<Iframe />}
-			footer={
-				<Footer height={60} p='md'>
-					<a
-						href='https://github.com/tylim88/Firebox'
-						target={'_blank'}
-						rel='noreferrer'
-					>
-						Github
-					</a>
-				</Footer>
-			}
-			header={
-				<Header height={70} p='md'>
-					<div
-						style={{ display: 'flex', alignItems: 'center', height: '100%' }}
-					>
-						<MediaQuery largerThan='sm' styles={{ display: 'none' }}>
-							<Burger
-								opened={opened}
-								onClick={() => setOpened(o => !o)}
-								size='sm'
-								color={theme.colors.gray[6]}
-								mr='xl'
-							/>
-						</MediaQuery>
+		<AppShell padding='md' fixed>
+			<Header />
+			<Grid style={{ height: '100%' }}>
+				<Grid.Col span={5} style={{ height: '100%' }}>
+					<CodeEditor />
+				</Grid.Col>
+				<Grid.Col span={7} style={{ height: '100%' }}>
+					<Iframe />
+				</Grid.Col>
+			</Grid>
 
-						<Text>FireBox 🔥</Text>
-					</div>
-				</Header>
-			}
-		>
-			<CodeEditor />
+			<Footer />
 		</AppShell>
 	)
 }
