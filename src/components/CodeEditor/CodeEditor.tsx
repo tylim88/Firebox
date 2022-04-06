@@ -1,39 +1,53 @@
 import React from 'react'
-import CodeMirror from '@uiw/react-codemirror'
-import { javascript } from '@codemirror/lang-javascript'
-import { useCode } from 'hooks'
+import { useCode, useTheme } from 'hooks'
 import { Button, Stack } from '@mantine/core'
-import { oneDark } from '@codemirror/theme-one-dark'
+import Editor from '@monaco-editor/react'
 
 export const CodeEditor = () => {
-	const { code, setCode, loading, disabled, onSave } = useCode()
-
+	const { code, setCode, loading, disabled, onSave, saveRef } = useCode()
+	const { backgroundColor, codeEditor, fontColor } = useTheme()
 	return (
 		<>
-			<Stack style={{ width: 'auto' }} mb='5px'>
-				<div style={{ display: 'flex', justifyContent: 'center' }}>
+			<Stack style={{ width: 'auto', backgroundColor }} mb='15px'>
+				<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
 					<Button
-						variant='outline'
-						color='red'
+						ref={saveRef}
 						compact
 						loading={loading}
 						disabled={disabled}
 						onClick={onSave}
+						styles={{
+							label: {
+								color: disabled || loading ? fontColor : 'white',
+							},
+						}}
+						{...(disabled || loading
+							? {
+									variant: 'outline',
+									color: 'gray',
+							  }
+							: {
+									variant: 'gradient',
+									gradient: { from: 'orange', to: 'red' },
+							  })}
 					>
-						{loading ? 'Fetching Module and Transpiling' : 'Save'}
+						{loading ? 'Fetching and Transpiling Modules' : 'Ctrl+S Save'}
 					</Button>
 				</div>
 			</Stack>
 			<Stack style={{ height: '100%' }}>
-				<CodeMirror
-					value={code}
-					height='100%'
-					theme={oneDark}
-					extensions={[javascript({ jsx: true, typescript: true })]}
-					onChange={(value, viewUpdate) => {
-						setCode(value)
+				<Editor
+					height='85vh'
+					theme={codeEditor}
+					defaultLanguage='javascript'
+					defaultValue={code}
+					onChange={newValue => setCode(newValue || '')}
+					options={{
+						wordWrap: 'on',
+						minimap: {
+							enabled: false,
+						},
 					}}
-					style={{ height: '100%' }}
 				/>
 			</Stack>
 		</>

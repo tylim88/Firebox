@@ -3,14 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@codemirror/lang-javascript": "^0.19.7",
-		"@codemirror/theme-one-dark": "^0.19.1",
 		"@mantine/core": "^4.1.1",
 		"@mantine/hooks": "^4.1.1",
-		"@testing-library/jest-dom": "^5.16.3",
-		"@testing-library/react": "^12.1.4",
-		"@testing-library/user-event": "^13.5.0",
-		"@uiw/react-codemirror": "^4.5.3",
+		"@monaco-editor/react": "^4.4.1",
 		"console-feed": "^3.3.0",
 		"esbuild-wasm": "^0.14.30",
 		"firebase": "^9.6.10",
@@ -53,6 +48,9 @@
 		]
 	},
 	"devDependencies": {
+		"@testing-library/jest-dom": "^5.16.3",
+		"@testing-library/react": "^12.1.4",
+		"@testing-library/user-event": "^13.5.0",
 		"@types/jest": "^27.4.1",
 		"@types/node": "^17.0.23",
 		"@types/react": "^17.0.43",

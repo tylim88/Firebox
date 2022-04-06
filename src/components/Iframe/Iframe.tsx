@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { useCode } from 'hooks'
+import { useCode, useTheme } from 'hooks'
 import { Console as ConsoleR, Hook, Unhook } from 'console-feed'
 import { Grid, Switch, Box } from '@mantine/core'
 
@@ -8,6 +8,8 @@ export const Iframe: React.FC = () => {
 	const ref = useRef(null)
 	const [logs, setLogs] = useState<unknown[]>([])
 	const [checked, setChecked] = useState(true)
+	const { backgroundColor, console, consoleBg, fontColor } = useTheme()
+
 	// @ts-expect-error
 	useEffect(() => {
 		// ! this is not truly complete, as it does not capture the error logs from the iframe
@@ -43,13 +45,15 @@ export const Iframe: React.FC = () => {
 			style={{
 				flexDirection: 'column',
 				height: '100%',
+				backgroundColor,
 			}}
+			columns={24}
 			grow
 		>
-			<Grid.Col span={checked ? 6 : 11} style={{ overflow: 'auto' }}>
+			<Grid.Col span={checked ? 13 : 23} style={{ overflow: 'auto' }}>
 				<iframe
 					ref={ref}
-					style={{ height: '100%', width: '100%' }}
+					style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
 					srcDoc={srcDoc}
 					title='sandbox'
 					id='sandbox'
@@ -60,29 +64,28 @@ export const Iframe: React.FC = () => {
 			</Grid.Col>
 			<Grid.Col
 				span={1}
-				style={{ overflow: 'auto', backgroundColor: '#242424' }}
+				style={{ overflow: 'auto', backgroundColor: consoleBg }}
 			>
 				<Box mr='15px' style={{ display: 'flex', justifyContent: 'flex-end' }}>
 					<Switch
 						styles={{
-							label: { color: 'white' },
+							label: { color: fontColor },
 						}}
 						label='console'
 						checked={checked}
 						onChange={event => setChecked(event.currentTarget.checked)}
 					/>
-					;
 				</Box>
 			</Grid.Col>
 			<Grid.Col
-				span={checked ? 5 : 0}
-				style={{ overflow: 'auto', backgroundColor: '#242424' }}
+				span={checked ? 10 : 0}
+				style={{ overflow: 'auto', backgroundColor: consoleBg }}
 			>
 				<ConsoleR
 					styles={{ width: '100%', height: '100%' }}
 					// @ts-expect-error
 					logs={logs}
-					variant='dark'
+					variant={console}
 				/>
 			</Grid.Col>
 		</Grid>
