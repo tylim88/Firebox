@@ -68,6 +68,7 @@ export const CodeEditor = () => {
 					defaultValue={code}
 					onChange={newValue => setCode(newValue || '')}
 					onMount={handleEditorDidMount}
+					value={code}
 					options={{
 						wordWrap: 'on',
 						minimap: {

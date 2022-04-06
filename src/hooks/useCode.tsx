@@ -52,15 +52,14 @@ export const CodeProvider: React.FC = props => {
 		setOldCode(code)
 		setLoading(true)
 		setTimeout(() => setLoading(false), 5000)
-		const unformatted = editorRef.current?.getModel()?.getValue()
-		const formatted = Prettier.format(unformatted || '', {
+		const formatted = Prettier.format(code || '', {
 			parser: 'babel',
 			plugins: [parser],
 			useTabs: true,
 			semi: false,
 			singleQuote: true,
 		}).replace(/\n$/, '')
-		editorRef.current?.setValue(formatted)
+		setCode(formatted)
 		esbuild.transform(code, { loader: 'tsx' })
 	}
 	useEffect(() => {
