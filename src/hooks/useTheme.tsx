@@ -6,14 +6,14 @@ const themeContext = createContext<{
 	fontColor: string
 	ColorSchemeIcon: Icon
 	codeEditor: 'vs-dark' | 'light'
-	console: 'light' | 'dark'
+	consoleFeed: 'light' | 'dark'
 	consoleBg: '#242424' | 'white'
 }>({
 	backgroundColor: 'white',
 	fontColor: 'black',
 	ColorSchemeIcon: Sun,
 	codeEditor: 'vs-dark',
-	console: 'dark',
+	consoleFeed: 'dark',
 	consoleBg: '#242424',
 })
 
@@ -30,7 +30,7 @@ export const ThemeProvider: React.FC = props => {
 			fontColor: 'white',
 			ColorSchemeIcon: Sun,
 			codeEditor: 'vs-dark' as const,
-			console: 'dark' as const,
+			consoleFeed: 'dark' as const,
 			consoleBg: '#242424' as const,
 		},
 		light: {
@@ -38,7 +38,7 @@ export const ThemeProvider: React.FC = props => {
 			backgroundColor: 'white',
 			ColorSchemeIcon: Moon,
 			codeEditor: 'light' as const,
-			console: 'light' as const,
+			consoleFeed: 'light' as const,
 			consoleBg: 'white' as const,
 		},
 	}

@@ -8,7 +8,7 @@ export const Iframe: React.FC = () => {
 	const ref = useRef(null)
 	const [logs, setLogs] = useState<unknown[]>([])
 	const [checked, setChecked] = useState(true)
-	const { backgroundColor, console, consoleBg, fontColor } = useTheme()
+	const { backgroundColor, consoleFeed, consoleBg, fontColor } = useTheme()
 
 	// @ts-expect-error
 	useEffect(() => {
@@ -19,6 +19,7 @@ export const Iframe: React.FC = () => {
 		Hook(
 			iWindow.console,
 			log => {
+				console.log({ log })
 				setLogs(currLogs => [...currLogs, log])
 			},
 			false
@@ -32,8 +33,6 @@ export const Iframe: React.FC = () => {
             <div id="root"></div>
         </body>
         <script>
-            console.log(123,'this is in iframe')
-			console.log(1223,'this is in iframe)
             ${code}
         </script>
     </html>
@@ -50,7 +49,7 @@ export const Iframe: React.FC = () => {
 			columns={24}
 			grow
 		>
-			<Grid.Col span={checked ? 13 : 23} style={{ overflow: 'auto' }}>
+			<Grid.Col span={checked ? 13 : 2} style={{ overflow: 'auto' }}>
 				<iframe
 					ref={ref}
 					style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
@@ -85,7 +84,7 @@ export const Iframe: React.FC = () => {
 					styles={{ width: '100%', height: '100%' }}
 					// @ts-expect-error
 					logs={logs}
-					variant={console}
+					variant={consoleFeed}
 				/>
 			</Grid.Col>
 		</Grid>

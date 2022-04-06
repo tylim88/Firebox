@@ -6,6 +6,10 @@ import React, {
 	useRef,
 } from 'react'
 import esbuild from 'esbuild-wasm'
+import { OnMount } from '@monaco-editor/react'
+import Prettier from 'prettier'
+import parser from 'prettier/parser-babel'
+
 const codeContext = createContext<{
 	code: string
 	setCode: React.Dispatch<React.SetStateAction<string>>
@@ -13,6 +17,7 @@ const codeContext = createContext<{
 	onSave: () => void
 	disabled: boolean
 	saveRef: React.MutableRefObject<HTMLButtonElement | null>
+	editorRef: React.MutableRefObject<Parameters<OnMount>[0] | null>
 }>({
 	code: '',
 	setCode: () => {},
@@ -20,6 +25,7 @@ const codeContext = createContext<{
 	onSave: () => {},
 	disabled: false,
 	saveRef: { current: null },
+	editorRef: { current: null },
 })
 
 export const useCode = () => {
@@ -28,15 +34,33 @@ export const useCode = () => {
 }
 
 export const CodeProvider: React.FC = props => {
-	const [code, setCode] = useState(`function add(a, b) {\n  return a + b;\n}`)
+	const [code, setCode] = useState(`
+	console.log(123,'this is in iframe')
+	console.log(1223,'this is in iframe')
+	// import React from 'react'
+	// const App=()=>{
+	// 	return (<div>Hello World</div>)
+	// }
+	`)
 	const [oldCode, setOldCode] = useState(code)
 	const [loading, setLoading] = useState(false)
 	const [disabled, setDisabled] = useState(false)
 	const saveRef = useRef(null)
+	const editorRef = useRef<Parameters<OnMount>[0] | null>(null)
 
 	const onSave = () => {
 		setOldCode(code)
 		setLoading(true)
+		setTimeout(() => setLoading(false), 5000)
+		const unformatted = editorRef.current?.getModel()?.getValue()
+		const formatted = Prettier.format(unformatted || '', {
+			parser: 'babel',
+			plugins: [parser],
+			useTabs: true,
+			semi: false,
+			singleQuote: true,
+		}).replace(/\n$/, '')
+		editorRef.current?.setValue(formatted)
 		esbuild.transform(code, { loader: 'tsx' })
 	}
 	useEffect(() => {
@@ -49,7 +73,7 @@ export const CodeProvider: React.FC = props => {
 
 	return (
 		<codeContext.Provider
-			value={{ code, setCode, loading, onSave, disabled, saveRef }}
+			value={{ code, setCode, loading, onSave, disabled, saveRef, editorRef }}
 			{...props}
 		/>
 	)
