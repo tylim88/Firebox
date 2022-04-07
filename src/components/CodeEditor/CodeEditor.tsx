@@ -8,7 +8,7 @@ import traverse from '@babel/traverse'
 import MonacoJSXHighlighter from 'monaco-jsx-highlighter'
 
 export const CodeEditor = () => {
-	const { code, setCode, loading, disabled, onSave, saveRef, editorRef } =
+	const { code, loading, disabled, onSave, saveRef, editorRef, setCode } =
 		useCode()
 	const { backgroundColor, codeEditor, fontColor } = useTheme()
 	const handleEditorDidMount: OnMount = (editor, monaco) => {

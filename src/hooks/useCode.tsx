@@ -20,6 +20,7 @@ const codeContext = createContext<{
 	disabled: boolean
 	saveRef: React.MutableRefObject<HTMLButtonElement | null>
 	editorRef: React.MutableRefObject<Parameters<OnMount>[0] | null>
+	iframeRef: React.MutableRefObject<HTMLIFrameElement | null>
 }>({
 	code: '',
 	bundledCode: '',
@@ -29,6 +30,7 @@ const codeContext = createContext<{
 	disabled: false,
 	saveRef: { current: null },
 	editorRef: { current: null },
+	iframeRef: { current: null },
 })
 
 export const useCode = () => {
@@ -50,6 +52,7 @@ export const CodeProvider: React.FC = props => {
 	const [loading, setLoading] = useState(false)
 	const [disabled, setDisabled] = useState(false)
 	const saveRef = useRef(null)
+	const iframeRef = useRef(null)
 	const editorRef = useRef<Parameters<OnMount>[0] | null>(null)
 
 	const onSave = () => {
@@ -68,16 +71,18 @@ export const CodeProvider: React.FC = props => {
 	}
 	useEffect(() => {
 		const load = async () => {
+			setLoading(true)
 			const data = await localForage.getItem<string>('code')
 			await localForage.clear() // clear local storage cache
 			if (data) {
 				setCode(data)
 				await localForage.setItem('code', data)
 			}
+			let bundledCode = ''
 			await initialize()
-			const bundledCode = (await bundle(data || defaultCode)).outputFiles[0]
-				.text
+			bundledCode = (await bundle(data || defaultCode)).outputFiles[0].text
 			setBundledCode(bundledCode)
+			setLoading(false)
 		}
 		load()
 	}, [])
@@ -100,6 +105,7 @@ export const CodeProvider: React.FC = props => {
 				saveRef,
 				editorRef,
 				bundledCode,
+				iframeRef,
 			}}
 			{...props}
 		/>
