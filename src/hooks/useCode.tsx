@@ -55,7 +55,7 @@ export const CodeProvider: React.FC = props => {
 	const iframeRef = useRef(null)
 	const editorRef = useRef<Parameters<OnMount>[0] | null>(null)
 
-	const onSave = () => {
+	const onSave = async () => {
 		localForage.setItem('code', code)
 		setOldCode(code)
 		setLoading(true)
@@ -68,6 +68,8 @@ export const CodeProvider: React.FC = props => {
 			singleQuote: true,
 		}).replace(/\n$/, '')
 		setCode(formatted)
+		const bundledCode = (await bundle(code)).outputFiles[0].text
+		setBundledCode(bundledCode)
 	}
 	useEffect(() => {
 		const load = async () => {

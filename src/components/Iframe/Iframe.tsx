@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useCode, useTheme } from 'hooks'
 import { Console as ConsoleR, Hook, Unhook } from 'console-feed'
-import { Grid, Switch, Box, Loader } from '@mantine/core'
+import { Grid, Switch, Box } from '@mantine/core'
 
 export const Iframe: React.FC = () => {
 	const { bundledCode, iframeRef, loading } = useCode()
@@ -14,7 +14,6 @@ export const Iframe: React.FC = () => {
 		// ! this is not truly complete, as it does not capture the error logs from the iframe
 		// https://github.com/samdenty/console-feed/issues/49
 		const iWindow = iframeRef.current?.contentWindow
-		console.log('hooked')
 		if (iWindow) {
 			Hook(
 				// @ts-expect-error
@@ -25,7 +24,6 @@ export const Iframe: React.FC = () => {
 				false
 			)
 			return () => {
-				console.log('unhooked', iWindow)
 				try {
 					// @ts-expect-error
 					return Unhook(iWindow.console)
@@ -71,20 +69,16 @@ export const Iframe: React.FC = () => {
 					display: 'flex',
 				}}
 			>
-				{loading ? (
-					<Loader color='orange' size='xl' />
-				) : (
-					<iframe
-						ref={iframeRef}
-						style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
-						srcDoc={srcDoc}
-						title='sandbox'
-						id='sandbox'
-						// copy from codesandbox
-						allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
-						sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
-					/>
-				)}
+				<iframe
+					ref={iframeRef}
+					style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
+					srcDoc={srcDoc}
+					title='sandbox'
+					id='sandbox'
+					// copy from codesandbox
+					allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
+					sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
+				/>
 			</Grid.Col>
 			<Grid.Col
 				span={1}
