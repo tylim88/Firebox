@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useCode, useTheme } from 'hooks'
 import { Console as ConsoleR, Hook, Unhook } from 'console-feed'
-import { Grid, Switch, Box, Loader } from '@mantine/core'
+import { Grid, Switch, Box } from '@mantine/core'
 
 export const Iframe: React.FC = () => {
 	const { bundledCode, iframeRef, loading } = useCode()
