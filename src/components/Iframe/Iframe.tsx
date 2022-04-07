@@ -64,31 +64,17 @@ export const Iframe: React.FC = () => {
 					display: 'flex',
 				}}
 			>
-				{loading ? (
-					<iframe
-						ref={iframeRef}
-						style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
-						srcDoc={srcDoc}
-						key={srcDoc}
-						title='sandbox'
-						id='sandbox'
-						// copy from codesandbox
-						allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
-						sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
-					/>
-				) : (
-					<iframe
-						ref={iframeRef}
-						style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
-						srcDoc={srcDoc}
-						key={srcDoc}
-						title='sandbox'
-						id='sandbox'
-						// copy from codesandbox
-						allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
-						sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
-					/>
-				)}
+				<iframe
+					ref={iframeRef}
+					style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
+					srcDoc={srcDoc}
+					key={srcDoc}
+					title='sandbox'
+					id='sandbox'
+					// copy from codesandbox
+					allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
+					sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
+				/>
 			</Grid.Col>
 			<Grid.Col
 				span={1}

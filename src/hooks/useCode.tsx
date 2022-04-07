@@ -67,8 +67,13 @@ export const CodeProvider: React.FC = props => {
 			singleQuote: true,
 		}).replace(/\n$/, '')
 		setCode(formatted)
-		const bundledCode = (await bundle(code)).outputFiles[0].text
-		setBundledCode(bundledCode)
+
+		if (process.env.NODE_ENV === 'development') {
+			setBundledCode(code)
+		} else if (process.env.NODE_ENV === 'production') {
+			const bundledCode = (await bundle(code)).outputFiles[0].text
+			setBundledCode(bundledCode)
+		}
 		setLoading(false)
 	}
 	useEffect(() => {
@@ -81,9 +86,13 @@ export const CodeProvider: React.FC = props => {
 				await localForage.setItem('code', data)
 			}
 			let bundledCode = ''
-			await initialize()
-			bundledCode = (await bundle(data || defaultCode)).outputFiles[0].text
-			setBundledCode(bundledCode)
+			if (process.env.NODE_ENV === 'development') {
+				setBundledCode(data || defaultCode)
+			} else if (process.env.NODE_ENV === 'production') {
+				await initialize()
+				bundledCode = (await bundle(data || defaultCode)).outputFiles[0].text
+				setBundledCode(bundledCode)
+			}
 			setLoading(false)
 		}
 		load()
