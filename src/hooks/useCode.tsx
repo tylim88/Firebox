@@ -59,7 +59,6 @@ export const CodeProvider: React.FC = props => {
 		localForage.setItem('code', code)
 		setOldCode(code)
 		setLoading(true)
-		setTimeout(() => setLoading(false), 5000)
 		const formatted = Prettier.format(code || '', {
 			parser: 'babel',
 			plugins: [parser],
@@ -70,6 +69,7 @@ export const CodeProvider: React.FC = props => {
 		setCode(formatted)
 		const bundledCode = (await bundle(code)).outputFiles[0].text
 		setBundledCode(bundledCode)
+		setLoading(false)
 	}
 	useEffect(() => {
 		const load = async () => {
