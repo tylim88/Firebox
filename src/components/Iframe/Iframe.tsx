@@ -42,11 +42,6 @@ export const Iframe: React.FC = () => {
 		</script>
 	</html>
 	`
-	// useEffect(() => {
-	// 	;(iframeRef.current || { srcdoc: '' }).srcdoc = srcDoc
-	// 	iframeRef.current?.contentWindow?.postMessage(srcDoc, '*')
-	// }, [srcDoc, iframeRef])
-
 	return (
 		<Grid
 			p='16px'
@@ -70,12 +65,23 @@ export const Iframe: React.FC = () => {
 				}}
 			>
 				{loading ? (
-					<Loader color='orange' size='xl' />
+					<iframe
+						ref={iframeRef}
+						style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
+						srcDoc={srcDoc}
+						key={srcDoc}
+						title='sandbox'
+						id='sandbox'
+						// copy from codesandbox
+						allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
+						sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
+					/>
 				) : (
 					<iframe
 						ref={iframeRef}
 						style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
 						srcDoc={srcDoc}
+						key={srcDoc}
 						title='sandbox'
 						id='sandbox'
 						// copy from codesandbox
