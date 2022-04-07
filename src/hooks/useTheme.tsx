@@ -42,7 +42,6 @@ export const ThemeProvider: React.FC = props => {
 			consoleBg: 'white' as const,
 		},
 	}
-	console.log(theme.colorScheme)
 
 	return <themeContext.Provider value={mode[theme.colorScheme]} {...props} />
 }

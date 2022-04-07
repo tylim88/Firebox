@@ -4,7 +4,7 @@ import { Console as ConsoleR, Hook, Unhook } from 'console-feed'
 import { Grid, Switch, Box } from '@mantine/core'
 
 export const Iframe: React.FC = () => {
-	const { code } = useCode()
+	const { bundledCode, code } = useCode()
 	const ref = useRef(null)
 	const [logs, setLogs] = useState<unknown[]>([])
 	const [checked, setChecked] = useState(true)
@@ -33,7 +33,7 @@ export const Iframe: React.FC = () => {
             <div id="root"></div>
         </body>
         <script>
-            ${code}
+		${code}
         </script>
     </html>
     `
