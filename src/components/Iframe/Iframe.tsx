@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useCode, useTheme } from 'hooks'
 import { Console as ConsoleR, Hook, Unhook } from 'console-feed'
-import { Grid, Switch, Box } from '@mantine/core'
+import { Grid, Switch, Box, Loader } from '@mantine/core'
 
 export const Iframe: React.FC = () => {
-	const { bundledCode, code, iframeRef, loading } = useCode()
+	const { bundledCode, iframeRef, loading } = useCode()
 	const [logs, setLogs] = useState<unknown[]>([])
 	const [checked, setChecked] = useState(true)
 	const { backgroundColor, consoleFeed, consoleBg, fontColor } = useTheme()
@@ -38,14 +38,14 @@ export const Iframe: React.FC = () => {
 			<div id="root"></div>
 		</body>
 		<script>
-		${code}
+		${bundledCode}
 		</script>
 	</html>
 	`
-	useEffect(() => {
-		;(iframeRef.current || { srcdoc: '' }).srcdoc = srcDoc
-		iframeRef.current?.contentWindow?.postMessage(srcDoc, '*')
-	}, [srcDoc, iframeRef])
+	// useEffect(() => {
+	// 	;(iframeRef.current || { srcdoc: '' }).srcdoc = srcDoc
+	// 	iframeRef.current?.contentWindow?.postMessage(srcDoc, '*')
+	// }, [srcDoc, iframeRef])
 
 	return (
 		<Grid
@@ -69,16 +69,20 @@ export const Iframe: React.FC = () => {
 					display: 'flex',
 				}}
 			>
-				<iframe
-					ref={iframeRef}
-					style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
-					srcDoc={srcDoc}
-					title='sandbox'
-					id='sandbox'
-					// copy from codesandbox
-					allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
-					sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
-				/>
+				{loading ? (
+					<Loader color='orange' size='xl' />
+				) : (
+					<iframe
+						ref={iframeRef}
+						style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
+						srcDoc={srcDoc}
+						title='sandbox'
+						id='sandbox'
+						// copy from codesandbox
+						allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
+						sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
+					/>
+				)}
 			</Grid.Col>
 			<Grid.Col
 				span={1}
