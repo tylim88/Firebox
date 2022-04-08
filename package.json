@@ -9,7 +9,6 @@
 		"@mantine/hooks": "^4.1.1",
 		"@monaco-editor/react": "^4.4.1",
 		"axios": "^0.26.1",
-		"buffer": "^6.0.3",
 		"console-feed": "^3.3.0",
 		"esbuild-wasm": "^0.14.30",
 		"localforage": "^1.10.0",
@@ -18,11 +17,10 @@
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
 		"tabler-icons-react": "^1.43.0",
-		"typescript": "^4.6.3",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"reinstall": "rm -rf node_modules/ && rm package-lock.json && npm i && npx husky install",
+		"reinstall": "(rm -rf node_modules/ || true) && (rm package-lock.json || true) && npm i --force && npx husky install",
 		"lint": "eslint . --ext .ts --fix",
 		"tsc": "tsc",
 		"pub": "npm run build && npm publish",
@@ -31,9 +29,7 @@
 		"build": "set \"GENERATE_SOURCEMAP=false\" && set \"CI=false\" && react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"serve": "npm run build && serve -s build",
-		"dev": "---------------------dev------------------------",
-		"prod": "---------------------prod------------------------"
+		"serve": "npm run build && serve -s build"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -61,11 +57,10 @@
 		"@types/node": "^17.0.23",
 		"@types/react": "^17.0.43",
 		"@types/react-dom": "^17.0.14",
-		"cross-env": "^7.0.3",
-		"env-cmd": "^10.1.0",
 		"pretty-quick": "^3.1.3",
 		"react-error-overlay": "^6.0.10",
 		"react-scripts": "^4.0.3",
-		"serve": "^13.0.2"
+		"serve": "^13.0.2",
+		"typescript": "^4.6.3"
 	}
 }

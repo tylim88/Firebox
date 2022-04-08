@@ -2,6 +2,8 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/04a9977a-1fb4-433f-bb17-ce3adc58b8f4/deploy-status)](https://app.netlify.com/sites/firebox1/deploys)
 
+## Intro
+
 Simple CodeSandBox-like Web App, Install Dependencies and Run Code All In Your Browser.
 
 ![Firebox](./img/img1.png)
@@ -13,20 +15,28 @@ view page: https://firebox1.netlify.app/
 
 For some reason, the code doesn't works in development, but only work in production,.
 
-quick start:
+## Installation
+
+```bash
+npm i --force
+```
+
+## Quick Start
 
 ```bash
 npm run serve
 ```
 
-potential improvement:
+## Future Works
 
 1. virtual file system
 2. resolve local relative path
 3. create fullstack to store user codes
 4. resizer
 
-credit: https://codesandbox.io/s/h4xfy
+## Credit
+
+https://codesandbox.io/s/h4xfy
 
 There is not much demo I can found on web, most are Codepen like example that cannot do import and transpilation
 

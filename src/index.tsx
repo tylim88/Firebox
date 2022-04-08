@@ -3,7 +3,8 @@ import './index.css'
 import App from 'App'
 import reportWebVitals from './reportWebVitals'
 import { CodeProvider, ThemeProvider, ChangeThemeProvider } from 'hooks'
-import { createRoot } from 'react-dom/client'
+// @ts-expect-error
+import { createRoot } from 'react-dom'
 
 const container = document.getElementById('root')
 

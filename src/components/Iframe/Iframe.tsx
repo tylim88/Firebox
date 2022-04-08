@@ -42,7 +42,6 @@ export const Iframe: React.FC = () => {
 		</script>
 	</html>
 	`
-	console.log('checked', checked)
 	return (
 		<Grid
 			p='16px'

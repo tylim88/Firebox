@@ -5,7 +5,7 @@ import { resolvePath } from './resolvePath'
 export const initialize = async () => {
 	await esbuild
 		.initialize({
-			wasmURL: 'https://www.unpkg.com/esbuild-wasm@0.14.30/esbuild.wasm', // use same version as your esbuild-wasm dependency
+			wasmURL: 'https://www.unpkg.com/esbuild-wasm@0.14.34/esbuild.wasm', // use same version as your esbuild-wasm dependency
 			worker: true,
 		})
 		.catch()
