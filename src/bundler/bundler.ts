@@ -4,12 +4,10 @@ import { fetchCache } from './fetchCache'
 import { resolvePath } from './resolvePath'
 
 export const initialize = async () => {
-	await esbuild
-		.initialize({
-			wasmURL: `https://www.unpkg.com/esbuild-wasm@${pkg.version}/esbuild.wasm`,
-			worker: true,
-		})
-		.catch()
+	await esbuild.initialize({
+		wasmURL: `https://www.unpkg.com/esbuild-wasm@${pkg.version}/esbuild.wasm`,
+		worker: true,
+	})
 }
 
 export const bundle = async (code: string) => {
