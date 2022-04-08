@@ -10,24 +10,21 @@ export const Iframe: React.FC = () => {
 	const [checked, setChecked] = useState(true)
 	const { backgroundColor, consoleFeed, consoleBg, fontColor } = useTheme()
 
-	// @ts-expect-error
 	useEffect(() => {
 		// https://github.com/samdenty/console-feed/issues/49
-		const iWindow = iframeRef.current?.contentWindow
-		if (iWindow) {
+		const iConsole =
+			// @ts-expect-error
+			iframeRef.current?.contentWindow?.console
+		if (iConsole) {
 			Hook(
-				// @ts-expect-error
-				iWindow.console,
+				iConsole,
 				log => {
 					setLogs(currLogs => [...currLogs, log])
 				},
 				false
 			)
 			return () => {
-				try {
-					// @ts-expect-error
-					return Unhook(iWindow.console)
-				} catch (e) {}
+				Unhook(iConsole)
 			}
 		}
 	}, [iframeRef, loading])

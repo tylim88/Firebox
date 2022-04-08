@@ -38,7 +38,7 @@ export const useCode = () => {
 	return value
 }
 
-const defaultCode = `// import npm package as long as it is available on unpkg.com
+const defaultCode = `// fetch npm package as long as it is available on unpkg.com
 // root div id is 'root'
 import React, { useState } from 'react'
 import { createRoot } from 'react-dom'
@@ -53,12 +53,11 @@ const emoji = ['🐴', '🦄', '🌈', '☀️', '🌙', '⭐']
 const random = () => pick(emoji, { count: randomInteger(1, emoji.length) })
 
 const App = () => {
-	const [, forUpdate] = useState([])
-	// try console.log
+	const [, forceUpdate] = useState([])
 	console.log('try console.log some emoji', random())
 	return (
 		<>
-			<button class="button is-primary" onClick={() => forUpdate([])}>
+			<button class="button is-primary" onClick={() => forceUpdate([])}>
 				click me!
 			</button>
 			<div>have some emojis:{random()}</div>
