@@ -26,7 +26,7 @@ potential improvement:
 
 credit: https://codesandbox.io/s/h4xfy
 
-There is not much information I can found on web, the above repo is one that has almost complete solution.
+There is not much information I can found on web, the above repo is one that has almost complete minimum viable solution.
 
 Improvements:
 
