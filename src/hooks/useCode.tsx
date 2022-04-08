@@ -38,12 +38,35 @@ export const useCode = () => {
 	return value
 }
 
-const defaultCode = `console.log(123,'this is in iframe')
-console.log(1223,'this is in iframe')
-// import React from 'react'
-// const App=()=>{
-// 	return (<div>Hello World</div>)
-// }`
+const defaultCode = `// import npm package as long as it is available on unpkg.com
+// root div id is 'root'
+import React, { useState } from 'react'
+import { createRoot } from 'react-dom'
+import pick from 'pick-random'
+import randomInteger from 'random-int'
+import 'bulma/css/bulma.css'
+
+const container = document.getElementById('root')
+
+const emoji = ['🐴', '🦄', '🌈', '☀️', '🌙', '⭐']
+
+const random = () => pick(emoji, { count: randomInteger(1, emoji.length) })
+
+const App = () => {
+	const [, forUpdate] = useState([])
+	// try console.log
+	console.log('try console.log some emoji', random())
+	return (
+		<>
+			<button class="button is-primary" onClick={() => forUpdate([])}>
+				click me!
+			</button>
+			<div>have some emojis:{random()}</div>
+		</>
+	)
+}
+
+createRoot(container).render(<App />)`
 
 export const CodeProvider: React.FC = props => {
 	const [code, setCode] = useState(defaultCode)
@@ -67,12 +90,15 @@ export const CodeProvider: React.FC = props => {
 			singleQuote: true,
 		}).replace(/\n$/, '')
 		setCode(formatted)
-
 		if (process.env.NODE_ENV === 'development') {
 			setBundledCode(code)
 		} else if (process.env.NODE_ENV === 'production') {
-			const bundledCode = (await bundle(code)).outputFiles[0].text
-			setBundledCode(bundledCode)
+			try {
+				const bundledCode = (await bundle(code)).outputFiles[0].text
+				setBundledCode(bundledCode)
+			} catch (e) {
+				console.error(e)
+			}
 		}
 		setLoading(false)
 	}
@@ -89,9 +115,13 @@ export const CodeProvider: React.FC = props => {
 			if (process.env.NODE_ENV === 'development') {
 				setBundledCode(data || defaultCode)
 			} else if (process.env.NODE_ENV === 'production') {
-				await initialize()
-				bundledCode = (await bundle(data || defaultCode)).outputFiles[0].text
-				setBundledCode(bundledCode)
+				try {
+					await initialize()
+					bundledCode = (await bundle(data || defaultCode)).outputFiles[0].text
+					setBundledCode(bundledCode)
+				} catch (e) {
+					console.error(e)
+				}
 			}
 			setLoading(false)
 		}

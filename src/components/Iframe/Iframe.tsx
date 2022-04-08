@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useCode, useTheme } from 'hooks'
 import { Console as ConsoleR, Hook, Unhook } from 'console-feed'
-import { Grid, Switch, Box } from '@mantine/core'
+import { Grid, Switch, Box, ActionIcon } from '@mantine/core'
+import { Trash } from 'tabler-icons-react'
 
 export const Iframe: React.FC = () => {
 	const { bundledCode, iframeRef, loading } = useCode()
@@ -11,7 +12,6 @@ export const Iframe: React.FC = () => {
 
 	// @ts-expect-error
 	useEffect(() => {
-		// ! this is not truly complete, as it does not capture the error logs from the iframe
 		// https://github.com/samdenty/console-feed/issues/49
 		const iWindow = iframeRef.current?.contentWindow
 		if (iWindow) {
@@ -42,6 +42,7 @@ export const Iframe: React.FC = () => {
 		</script>
 	</html>
 	`
+	console.log('checked', checked)
 	return (
 		<Grid
 			p='16px'
@@ -54,7 +55,7 @@ export const Iframe: React.FC = () => {
 			grow
 		>
 			<Grid.Col
-				span={checked ? 13 : 2}
+				span={checked ? 13 : 23}
 				style={{
 					overflow: 'auto',
 					justifyContent: 'center',
@@ -68,7 +69,7 @@ export const Iframe: React.FC = () => {
 					ref={iframeRef}
 					style={{ height: '100%', width: '100%', backgroundColor: 'white' }}
 					srcDoc={srcDoc}
-					key={srcDoc}
+					key={srcDoc} // this work in production but not in development
 					title='sandbox'
 					id='sandbox'
 					// copy from codesandbox
@@ -76,11 +77,16 @@ export const Iframe: React.FC = () => {
 					sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads allow-pointer-lock'
 				/>
 			</Grid.Col>
-			<Grid.Col
-				span={1}
-				style={{ overflow: 'auto', backgroundColor: consoleBg }}
-			>
+			<Grid.Col span={1} style={{ backgroundColor: consoleBg }}>
 				<Box mr='15px' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+					<ActionIcon
+						mx='10px'
+						onClick={() => {
+							setLogs([])
+						}}
+					>
+						<Trash size={48} strokeWidth={1} color={fontColor} />
+					</ActionIcon>
 					<Switch
 						styles={{
 							label: { color: fontColor },
