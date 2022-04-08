@@ -28,7 +28,9 @@ potential improvement:
 
 credit: https://codesandbox.io/s/h4xfy
 
-There is not much information I can found on web, the above repo is one that has almost complete minimum viable solution.
+There is not much demo I can found on web, most are Codepen like example that cannot do import and transpilation
+
+The above Codesandbox is one that has almost complete minimum viable solution.
 
 Improvements:
 
