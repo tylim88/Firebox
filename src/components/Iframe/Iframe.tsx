@@ -56,7 +56,6 @@ export const Iframe: React.FC = () => {
 			<Grid.Col
 				span={checked ? 13 : 23}
 				style={{
-					overflow: 'auto',
 					justifyContent: 'center',
 					alignItems: 'center',
 					height: '100%',
