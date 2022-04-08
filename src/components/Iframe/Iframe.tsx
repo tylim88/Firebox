@@ -98,8 +98,7 @@ export const Iframe: React.FC = () => {
 			>
 				<ConsoleR
 					styles={{ width: '100%', height: '100%' }}
-					// @ts-expect-error
-					logs={logs}
+					logs={logs as never[]}
 					variant={consoleFeed}
 				/>
 			</Grid.Col>

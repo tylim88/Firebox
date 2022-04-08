@@ -96,7 +96,7 @@ export const CodeProvider: React.FC = props => {
 				const bundledCode = (await bundle(code)).outputFiles[0].text
 				setBundledCode(bundledCode)
 			} catch (e) {
-				console.error(e)
+				console.log(e)
 			}
 		}
 		setLoading(false)
@@ -108,18 +108,18 @@ export const CodeProvider: React.FC = props => {
 			await localForage.clear() // clear local storage cache
 			if (data) {
 				setCode(data)
-				await localForage.setItem('code', data)
+				localForage.setItem('code', data)
 			}
-			let bundledCode = ''
 			if (process.env.NODE_ENV === 'development') {
 				setBundledCode(data || defaultCode)
 			} else if (process.env.NODE_ENV === 'production') {
 				try {
 					await initialize()
-					bundledCode = (await bundle(data || defaultCode)).outputFiles[0].text
+					const bundledCode = (await bundle(data || defaultCode)).outputFiles[0]
+						.text
 					setBundledCode(bundledCode)
 				} catch (e) {
-					console.error(e)
+					console.log(e)
 				}
 			}
 			setLoading(false)
