@@ -1,11 +1,12 @@
-import * as esbuild from 'esbuild-wasm'
+import esbuild from 'esbuild-wasm'
+import pkg from 'esbuild-wasm/package.json'
 import { fetchCache } from './fetchCache'
 import { resolvePath } from './resolvePath'
 
 export const initialize = async () => {
 	await esbuild
 		.initialize({
-			wasmURL: 'https://www.unpkg.com/esbuild-wasm@0.14.34/esbuild.wasm', // use same version as your esbuild-wasm dependency
+			wasmURL: `https://www.unpkg.com/esbuild-wasm@${pkg.version}/esbuild.wasm`,
 			worker: true,
 		})
 		.catch()
