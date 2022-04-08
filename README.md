@@ -2,6 +2,8 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/04a9977a-1fb4-433f-bb17-ce3adc58b8f4/deploy-status)](https://app.netlify.com/sites/firebox1/deploys)
 
+Simple CodeSandBox-like Web App, Install Dependencies and Run Code All In Your Browser.
+
 ![Firebox](./img/img1.png)
 
 view page: https://firebox1.netlify.app/
