@@ -8,12 +8,12 @@ Simple CodeSandBox-like Web App, Install Dependencies and Run Code All In Your B
 
 ![Firebox](./img/img1.png)
 
-view page: https://firebox1.netlify.app/
+https://firebox1.netlify.app/
 
 1. the root div id is `root`
 2. automatic install dependencies by resolving import statements
 
-For some reason, the code doesn't works in development, but only work in production,.
+For some reason, the code doesn't work in development, it only works in production.
 
 ## Installation
 
